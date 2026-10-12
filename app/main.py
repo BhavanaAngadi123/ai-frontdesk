@@ -1,4 +1,4 @@
-"""FrontDesk — the AI front desk for small businesses.
+"""FrontDesk — the AI front desk for businesses of every size.
 
 Run:  uvicorn app.main:app --reload
 Docs: http://127.0.0.1:8000/docs
@@ -23,7 +23,7 @@ log = logging.getLogger("frontdesk")
 def create_app() -> FastAPI:
     settings = get_settings()
     app = FastAPI(title=settings.APP_NAME,
-                  description="AI receptionist for small businesses — chat, catalog, bookings, payments, owner escalation inbox.",
+                  description="AI receptionist for businesses of every size — chat, catalog, bookings, payments, owner escalation inbox.",
                   version="0.1.0")
 
     Base.metadata.create_all(bind=engine)

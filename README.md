@@ -1,4 +1,4 @@
-# FrontDesk — the AI front desk for small businesses
+# FrontDesk — the AI front desk for businesses of every size
 
 One AI receptionist that answers customers on web chat and WhatsApp: FAQs, catalog,
 bookings, and **payment ↔ order matching** — with an owner escalation inbox where every
