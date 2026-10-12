@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Owner dashboard — {{ app_name }}</title>
+<link rel="stylesheet" href="/static/css/site.css">
+</head>
+<body>
+<div class="dash-top"><div class="wrap">
+  <a class="brand" href="/" style="color:var(--paper);text-decoration:none"><span class="brand-mark" style="box-shadow:3px 3px 0 var(--paper)">F</span></a>
+  <h1>Owner dashboard</h1>
+  <select id="bizSel">{% for b in businesses %}<option value="{{ b.slug }}">{{ b.name }}</option>{% endfor %}</select>
+  <input id="tokenIn" type="password" placeholder="Owner token" style="margin-left:auto;min-width:220px">
+  {% if demo_mode %}<span class="badge demo">Demo AI</span>{% endif %}
+  {% if owner_token_is_default %}<span class="badge" style="background:var(--clay);color:#fff">Default owner token — change it in .env</span>{% endif %}
+</div></div>
+
+<div class="wrap">
+  <div class="tabs">
+    <button class="tab active" data-tab="inbox">Escalation inbox <span class="pill" id="inboxCount" style="display:none"></span></button>
+    <button class="tab" data-tab="chats">Chats</button>
+    <button class="tab" data-tab="catalog">Catalog</button>
+    <button class="tab" data-tab="bookings">Bookings</button>
+    <button class="tab" data-tab="ledger">Ledger</button>
+    <button class="tab" data-tab="analytics">Analytics</button>
+    <button class="tab" data-tab="setup">Setup wizard</button>
+    <button class="tab" data-tab="settings">Settings</button>
+  </div>
+
+  <section class="panel active" id="panel-inbox">
+    <div class="sec-head"><h2>Needs your human touch</h2>
+      <p>Each card is a brief: what happened, what the AI already tried, what only you can decide. Reply right here — the customer stays in the same thread.</p></div>
+    <div id="inbox"></div>
+  </section>
+
+  <section class="panel" id="panel-chats">
+    <div class="sec-head"><h2>Recent conversations</h2></div>
+    <div id="chatList" class="cards"></div>
+    <div id="chatDetail" style="margin-top:24px;display:none">
+      <h3 style="margin-bottom:12px">Thread</h3>
+      <div class="chat-panel" style="height:420px"><div class="chat-body" id="threadBody"></div></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-catalog">
+    <div class="sec-head"><h2>Catalog</h2><p>What the AI shows customers. Prices in minor units (e.g. 249900 = ₹2,499).</p></div>
+    <div class="form-card" style="margin-bottom:24px">
+      <h3>Add item</h3>
+      <label>Name</label><input id="ci-name">
+      <label>Description</label><input id="ci-desc">
+      <label>Price (minor units)</label><input id="ci-price" type="number" value="99900">
+      <label>Category</label><input id="ci-cat">
+      <p style="margin-top:14px"><button class="btn small" id="ci-add">Add item</button></p>
+    </div>
+    <div id="catalogList"></div>
+  </section>
+
+  <section class="panel" id="panel-bookings">
+    <div class="sec-head"><h2>Bookings</h2></div>
+    <div id="bookingList"></div>
+  </section>
+
+  <section class="panel" id="panel-ledger">
+    <div class="sec-head"><h2>Payment ledger</h2>
+      <p>Every order, paid or waiting — matched automatically. You're only pinged when something's wrong: wrong amount, no matching order, or a duplicate.</p></div>
+    <div class="plain"><h3 style="font-family:'Fraunces',serif;margin-bottom:8px">In plain words</h3><p id="ledgerPlain"></p></div>
+    <h3 style="margin:18px 0 10px">Problem payments <span style="color:var(--clay)">(need you)</span></h3>
+    <div id="ledgerProblems"></div>
+    <h3 style="margin:18px 0 10px">Orders</h3>
+    <div id="ledgerOrders"></div>
+  </section>
+
+  <section class="panel" id="panel-analytics">
+    <div class="sec-head"><h2>How's the desk doing?</h2><p>Plain words, not dashboards.</p></div>
+    <div class="stat-grid" id="statGrid"></div>
+    <div class="plain"><h3 style="font-family:'Fraunces',serif;margin-bottom:8px">In plain words</h3><ul id="plainList"></ul></div>
+  </section>
+
+  <section class="panel" id="panel-setup">
+    <div class="sec-head"><h2>5-minute setup</h2><p>A new shop, live, in five steps.</p></div>
+    <div class="form-card">
+      <div class="wizard-steps" id="wzSteps"></div>
+      <div id="wzBody"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-settings">
+    <div class="sec-head"><h2>Settings</h2></div>
+    <div class="form-card" id="settingsForm"></div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+<script src="/static/js/dashboard.js"></script>
+</body>
+</html>

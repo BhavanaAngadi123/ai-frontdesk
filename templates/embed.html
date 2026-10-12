@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chat with {{ business.name }} — {{ app_name if false else 'FrontDesk' }}</title>
+<link rel="stylesheet" href="/static/css/site.css">
+<style>body{display:grid;place-items:center;min-height:100vh;padding:24px}.chat-panel{width:min(560px,100%);height:80vh}</style>
+</head>
+<body>
+<div class="chat-panel">
+  <div class="chat-head"><span class="dot"></span>
+    <div><strong>{{ business.name }}</strong><br><small>AI receptionist — {{ business.bot_name }}</small></div>
+    {% if demo_mode %}<span class="demo-tag">DEMO AI</span>{% endif %}
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input">
+    <input id="chatInput" placeholder="Type a message…" autocomplete="off">
+    <button id="chatSend">Send</button>
+  </div>
+</div>
+<script>
+const SLUG = {{ business.slug | tojson }};
+const body = document.getElementById('chatBody'), input = document.getElementById('chatInput');
+let convId = null;
+function addMsg(role, text){
+  const d = document.createElement('div'); d.className = 'msg ' + role;
+  d.innerHTML = '<span class="who">'+(role==='customer'?'You':(role==='owner'?'Owner':'AI assistant'))+'</span>';
+  d.appendChild(document.createTextNode(text));
+  body.appendChild(d); body.scrollTop = body.scrollHeight;
+}
+async function send(text){
+  text = (text ?? input.value).trim(); if(!text) return;
+  addMsg('customer', text); input.value = '';
+  const r = await fetch('/api/chat', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({business: SLUG, conversation_id: convId, text})});
+  const j = await r.json(); convId = j.conversation_id; addMsg('assistant', j.reply);
+}
+document.getElementById('chatSend').onclick = () => send();
+input.addEventListener('keydown', e => { if(e.key === 'Enter') send(); });
+send('Hi!');
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ app_name }} — the AI front desk for small businesses</title>
+<link rel="stylesheet" href="/static/css/site.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark">F</span><span>{{ app_name }}<small>AI front desk</small></span></a>
+    <nav class="nav">
+      <a href="#features">Why it wins</a>
+      <a href="#demo">Try it live</a>
+      <a href="#how">How it works</a>
+      <a href="/dashboard" class="btn small">Owner login →</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="kicker">Built for the shop, not the call centre</span>
+    <h1>Your shop's <em>front desk</em>,<br>even when you're busy.</h1>
+    <p class="lede">{{ app_name }} answers your customers on chat and WhatsApp — questions, catalog,
+      bookings, payment status — and when only you can decide, it hands you a crisp brief instead of a cold queue.</p>
+    <div class="hero-cta">
+      <a href="#demo" class="btn">Talk to the demo ↓</a>
+      <a href="/dashboard" class="btn ghost">See the owner side</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge">✓ WhatsApp incl. voice notes + web chat</span>
+      <span class="badge">✓ Catalog &amp; bookings</span>
+      <span class="badge">✓ Payment ↔ order matching</span>
+      <span class="badge">✓ Owner brief on every handoff</span>
+      {% if demo_mode %}<span class="badge demo">● Demo AI mode — no key needed</span>{% endif %}
+    </div>
+  </section>
+</div>
+
+<div class="marquee"><span>
+  No missed chats ✦ Owner brief, not a cold handoff ✦ Catalog, bookings &amp; payments in one box ✦ Speaks your customer's language ✦
+  No missed chats ✦ Owner brief, not a cold handoff ✦ Catalog, bookings &amp; payments in one box ✦ Speaks your customer's language ✦&nbsp;
+</span></div>
+
+<div class="wrap">
+  <section id="features">
+    <div class="sec-head">
+      <div class="n">— why it wins</div>
+      <h2>Everything the big tools forgot.</h2>
+      <p>Chat-only bots can't take bookings. Voice-only receptionists can't show your catalog.
+         Team software drowns a solo owner. {{ app_name }} was designed around one person: you.</p>
+    </div>
+    <div class="cards">
+      <div class="card tilt-l"><div class="num">01</div><h3>The owner brief</h3>
+        <p>Every escalation arrives as a three-line brief — what happened, what the AI already tried,
+           what you must decide. Claim it or resolve it in one tap, and reply inside the same chat. The customer never repeats themselves.</p></div>
+      <div class="card tilt-r"><div class="num">02</div><h3>One box, every job</h3>
+        <p>FAQs, catalog lookup, appointment slots, payment ↔ order matching — one AI, one thread.
+           Every payment is matched to its order, the customer is confirmed instantly, and the order
+           flips to confirmed only when the payment verifies. No tab-switching, no "please hold".</p></div>
+      <div class="card tilt-l"><div class="num">03</div><h3>Trust by design</h3>
+        <p>It introduces itself as AI. Discounts and refunds wait for your approval. Answers cite their source.
+           And it never guesses when it's unsure — it brings you in instead.</p></div>
+      <div class="card tilt-r"><div class="num">04</div><h3>Live in an afternoon</h3>
+        <p>A 5-step setup wizard: business details, language, catalog, hours, WhatsApp.
+           Done-for-you feel, without the agency invoice.</p></div>
+      <div class="card tilt-l"><div class="num">05</div><h3>Speaks vernacular</h3>
+        <p>English today, Hindi ready, Hinglish and more one translation file away.
+           Your customers talk like themselves — so does your front desk.</p></div>
+      <div class="card tilt-r"><div class="num">06</div><h3>Flat-friendly, single-tenant</h3>
+        <p>One deployment per shop, clean data separation, SQLite to start and Postgres when you grow.
+           No per-seat traps, no message markups baked into the design.</p></div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="sec-head">
+      <div class="n">— try it live</div>
+      <h2>Talk to it. Break it. Watch it escalate.</h2>
+      <p>This is the real engine running below — the same one that powers WhatsApp.
+         Try <b>"show me necklaces"</b>, <b>"I want to book for tomorrow"</b>,
+         <b>"order status ORD-1001"</b>, <b>"I paid ₹1299 for ORD-1002, UTR 987654321098"</b> (watch it match and confirm instantly),
+         or <b>"give me a discount"</b> (that last one needs owner approval).</p>
+    </div>
+    <div class="demo-grid">
+      <div>
+        <div class="chat-panel">
+          <div class="chat-head"><span class="dot"></span>
+            <div><strong>Demo Boutique</strong><br><small>AI receptionist</small></div>
+            {% if demo_mode %}<span class="demo-tag">DEMO AI</span>{% endif %}
+          </div>
+          <div class="chat-body" id="chatBody"></div>
+          <div class="chat-input">
+            <input id="chatInput" placeholder="Type a message…" autocomplete="off">
+            <button id="chatSend">Send</button>
+          </div>
+        </div>
+        <div class="try-row">
+          <button class="try" data-q="Hi!">Say hi</button>
+          <button class="try" data-q="Show me silver necklaces">Show me silver necklaces</button>
+          <button class="try" data-q="I want to book an appointment for tomorrow">Book for tomorrow</button>
+          <button class="try" data-q="What's the status of order ORD-1001?">Order ORD-1001 status</button>
+          <button class="try" data-q="I paid 1299 for ORD-1002, UTR 987654321098">Report a payment (ORD-1002)</button>
+          <button class="try" data-q="Can I get a discount?">Ask for a discount</button>
+          <button class="try" data-q="I want to talk to a human">Talk to a human</button>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:26px;margin-bottom:14px">What just happened, technically</h3>
+        <p style="color:var(--ink2);margin-bottom:16px">Every reply above came from
+        <b>POST /api/chat</b>. The engine detects an intent, runs a tool (FAQ search, catalog,
+        slot engine, payment lookup, escalation), then composes the reply.
+        {% if demo_mode %}It's in <b>demo mode</b> — deterministic templates, every response tagged
+        <b>demo_mode: true</b>. Add an <b>LLM_API_KEY</b> and any OpenAI-compatible model takes over the wording.{% endif %}</p>
+        <pre class="code">POST /api/chat
+{
+  "business": "demo",
+  "text": "Show me silver necklaces"
+}
+
+→ {
+  "reply": "Here's what I found…",
+  "intent": "catalog",
+  "demo_mode": true,
+  "escalated": false
+}</pre>
+        <p style="margin-top:16px"><a href="/dashboard" class="btn small">Open the owner dashboard →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="sec-head">
+      <div class="n">— how it works</div>
+      <h2>From zero to answering customers in five steps.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="b">1</div><div><h3>Chat endpoint</h3><p>Customers talk on your website or WhatsApp. One API, every channel.</p></div></div>
+      <div class="step"><div class="b">2</div><div><h3>Intent + tools</h3><p>The engine figures out what they want and runs the right tool — FAQ, catalog, slots, payments.</p></div></div>
+      <div class="step"><div class="b">3</div><div><h3>Answer or escalate</h3><p>Confident? It answers with sources. Sensitive or stuck? It writes you a brief and brings you in — same thread, no reset.</p></div></div>
+      <div class="step"><div class="b">4</div><div><h3>You decide in one tap</h3><p>Claim, reply, resolve. Plain-language analytics tell you what you missed and what converted.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="n">— for developers</div>
+      <h2>Pluggable where it matters.</h2>
+      <p>Bring your own LLM (any OpenAI-compatible API), your own payment webhook, your own Meta credentials.
+         SQLite today, Postgres with one env var. Docker-ready.</p>
+    </div>
+    <pre class="code">git clone &lt;repo&gt; && cd ai-frontdesk
+cp .env.example .env        # add LLM_API_KEY to leave demo mode
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+# → http://127.0.0.1:8000  (landing)
+# → http://127.0.0.1:8000/dashboard  (owner side)</pre>
+  </section>
+</div>
+
+<footer><div class="wrap">
+  <div><b style="color:var(--ink)">{{ app_name }}</b> — the AI front desk for small businesses.<br>Demo boutique data is fictional.</div>
+  <div>API docs at <a href="/docs">/docs</a> · Embed chat at <a href="/embed/demo">/embed/demo</a></div>
+</div></footer>
+
+<script>
+const body = document.getElementById('chatBody'), input = document.getElementById('chatInput');
+let convId = null;
+function addMsg(role, text){
+  const d = document.createElement('div'); d.className = 'msg ' + role;
+  const who = role==='customer' ? 'You' : (role==='owner' ? 'Owner' : 'Demo Boutique AI');
+  d.innerHTML = '<span class="who">'+who+'</span>';
+  d.appendChild(document.createTextNode(text));
+  body.appendChild(d); body.scrollTop = body.scrollHeight;
+}
+async function send(text){
+  text = (text ?? input.value).trim(); if(!text) return;
+  addMsg('customer', text); input.value = '';
+  try{
+    const r = await fetch('/api/chat', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({business:'demo', conversation_id: convId, text})});
+    const j = await r.json(); convId = j.conversation_id; addMsg('assistant', j.reply);
+  }catch(e){ addMsg('assistant', 'Hmm, the demo server hiccupped — try again.'); }
+}
+document.getElementById('chatSend').onclick = () => send();
+input.addEventListener('keydown', e => { if(e.key === 'Enter') send(); });
+document.querySelectorAll('.try').forEach(b => b.onclick = () => send(b.dataset.q));
+send('Hi!');
+</script>
+</body>
+</html>

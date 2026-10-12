@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+.env
+.DS_Store
+/tmp/
+*.log
+.pytest_cache/
+alembic/versions/__pycache__/
