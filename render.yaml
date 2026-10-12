@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ai-frontdesk
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_ENV
+        value: prod
+      - key: OWNER_TOKEN
+        generateValue: true
